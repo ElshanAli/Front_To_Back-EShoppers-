@@ -1,62 +1,75 @@
-﻿using FrontBackEShopers.Models;
+﻿using FrontBackEShopers.DAL;
+using FrontBackEShopers.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontBackEShopers.Controllers
 {
     public class HomeController : Controller
     {
+       
+        private readonly AppDbContext _appDbContext;        
+        public HomeController(AppDbContext context)
+        {
+            _appDbContext = context;
+        }
         public IActionResult Index()
         {
-            var category = new List<Categories>
-           
-            {
-                new Categories()
-                {
-                    CategoryId = 1,
-                    CategoryName = "Shirts"
-                },
-                new Categories()
-                {
-                    CategoryId = 2,
-                    CategoryName = "Jeans"
-                },
-                new Categories()
-                {
-                    CategoryId = 3,
-                    CategoryName = "Swimwear"
-                },
-                new Categories()
-                {
-                    CategoryId = 4,
-                    CategoryName = "Sleepwear"
-                },
-                new Categories()
-                {
-                    CategoryId = 5,
-                    CategoryName = "Sportswear"
-                },
-                new Categories()
-                {
-                    CategoryId = 6,
-                    CategoryName = "Jumpsuits"
-                },
-                new Categories()
-                {
-                    CategoryId = 7,
-                    CategoryName = "Blazers"
-                },
-                new Categories()
-                {
-                    CategoryId = 8,
-                    CategoryName = "Jackets"
-                },
-                new Categories()
-                {
-                    CategoryId = 9,
-                    CategoryName = "Shoes"
-                }
-               
-            };
+            var products = _appDbContext.Products.ToList();
+            var categories = _appDbContext.Categories.ToList();
+
+
+
+            //var category = new List<Category>
+
+            //{
+            //    new Category()
+            //    {
+            //        CategoryId = 1,
+            //        CategoryName = "Shirts"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 2,
+            //        CategoryName = "Jeans"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 3,
+            //        CategoryName = "Swimwear"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 4,
+            //        CategoryName = "Sleepwear"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 5,
+            //        CategoryName = "Sportswear"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 6,
+            //        CategoryName = "Jumpsuits"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 7,
+            //        CategoryName = "Blazers"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 8,
+            //        CategoryName = "Jackets"
+            //    },
+            //    new Category()
+            //    {
+            //        CategoryId = 9,
+            //        CategoryName = "Shoes"
+            //    }
+
+            //};
+
             var categoryFirst = new List<CategoriesFirst>
             {
                 new CategoriesFirst()
@@ -75,65 +88,66 @@ namespace FrontBackEShopers.Controllers
                     CategoryName = "Baby's Dresses"
                 }
             };
-            var products = new List<Products>
-            {
-                new Products()
-                {
-                    Id = 1,
-                    ImageUrl = "cat-1.jpg",
-                    Name = "Men's dresses",
-                    Price = "$125.00"
+            //var products = new List<Product>
+            //{
+            //    new Product()
+            //    {
+            //        Id = 1,
+            //        ImageUrl = "cat-1.jpg",
+            //        Name = "Men's dresses",
+            //        Price = 125.00m
 
-                },
-                new Products()
-                {
-                    Id = 2,
-                    ImageUrl = "cat-2.jpg",
-                    Name = "Woman's dresses",
-                     Price = "$125.00"
+            //    },
+            //    new Product()
+            //    {
+            //        Id = 2,
+            //        ImageUrl = "cat-2.jpg",
+            //        Name = "Woman's dresses",
+            //         Price = 125.00m
 
-                },
-                new Products()
-                {
-                    Id = 3,
-                    ImageUrl = "cat-3.jpg",
-                    Name = "Baby's dresses",
-                     Price = "$125.00"
+            //    },
+            //    new Product()
+            //    {
+            //        Id = 3,
+            //        ImageUrl = "cat-3.jpg",
+            //        Name = "Baby's dresses",
+            //         Price = 125.00m
 
-                },
-                new Products()
-                {
-                    Id = 4,
-                    ImageUrl = "cat-4.jpg",
-                    Name = "Accerssories",
-                     Price = "$125.00"
+            //    },
+            //    new Product()
+            //    {
+            //        Id = 4,
+            //        ImageUrl = "cat-4.jpg",
+            //        Name = "Accerssories",
+            //        Price = 125.00m
 
-                },
-                new Products()
-                {
-                    Id = 5,
-                    ImageUrl = "cat-5.jpg",
-                    Name = "Bags",
-                     Price = "$125.00"
+            //    },
+            //    new Product()
+            //    {
+            //        Id = 5,
+            //        ImageUrl = "cat-5.jpg",
+            //        Name = "Bags",
+            //         Price = 125.00m
 
-                },
-                new Products()
-                {
-                    Id = 6,
-                    ImageUrl = "cat-6.jpg",
-                    Name = "Shoes",
-                     Price = "$125.00"
+            //    },
+            //    new Product()
+            //    {
+            //        Id = 6,
+            //        ImageUrl = "cat-6.jpg",
+            //        Name = "Shoes",
+            //         Price = 125.00m
 
-                }
-            };
-           
+            //    }
+            //};
+
 
 
             var homeViewModel = new HomeViewModel
             {
-                Categories = category,
-                CategoriesFirst = categoryFirst,
-                Products = products,
+               
+               Categories = categories,
+               Products = products,
+               CategoriesFirst = categoryFirst
 
             };
             return View(homeViewModel);
